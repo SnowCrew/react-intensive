@@ -1,0 +1,15 @@
+.text-area-container > * {
+  display: flex;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-area {
+  overflow: auto;
+  resize: none;
+}
+.text-input {
+  box-sizing: border-box;
+}
