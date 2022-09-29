@@ -1,0 +1,25 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+
+  padding: 10px;
+
+  background-color: rgba(245, 222, 179, 0.352);
+}
+
+.text-area-container > * {
+  display: flex;
+}
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.text-area {
+  overflow: auto;
+  resize: none;
+}
+.text-input {
+  box-sizing: border-box;
+}
