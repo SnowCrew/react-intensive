@@ -1,0 +1,38 @@
+.completedForm {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  justify-content: space-between;
+
+  max-width: 70vw;
+  /* min-height: 70vh; */
+
+  padding: 10px;
+
+  background-color: rgba(245, 222, 179, 0.352);
+}
+
+.fieldsContainer {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+
+  border: 1px solid black;
+
+  margin: 5px;
+  padding: 5px;
+
+  justify-content: space-between;
+  align-items: center;
+}
+.fieldName {
+  display: flex;
+}
+.fieldValue {
+  display: block;
+  flex-direction: column;
+
+  max-width: 70%;
+
+  word-wrap: break-word;
+}

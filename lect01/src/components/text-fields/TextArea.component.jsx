@@ -18,14 +18,18 @@ const TextArea = (props) => {
         resize="none"
         rows={"7"}
         maxLength="600"
-        cols={"50"}
+        cols={"70"}
         placeholder={placeholder}
         value={value}
         {...otherProps}
       ></textarea>
-      <label className="textAreaInfo">
-        Осталось {countCharacters}/600 символов
-      </label>
+      {countCharacters === 600 ? (
+        "Превышен лимит символов в поле"
+      ) : (
+        <label className="textAreaInfo">
+          Осталось {countCharacters}/600 символов
+        </label>
+      )}
     </div>
   );
 };

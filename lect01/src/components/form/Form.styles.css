@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 5px;
 
-  padding: 10px;
+  margin: 10px;
 
   background-color: rgba(245, 222, 179, 0.352);
 }

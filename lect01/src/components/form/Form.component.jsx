@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { useCallback } from "react";
 
 const Form = (props) => {
-  const { setFormStatus } = props;
+  const { setFormStatus, setPersonInformation } = props;
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [formFieldsValidStatus, setFormFieldsValidStatus] =
     useState(statusFormFields);
@@ -45,6 +45,7 @@ const Form = (props) => {
 
       if (Object.values(formFieldsValidStatus).every((el) => el === true)) {
         setFormStatus(true);
+        setPersonInformation(formFields);
         console.log("Form fields with good values!");
       }
     },
@@ -133,6 +134,7 @@ const Form = (props) => {
         value={aboutYourself}
         name="aboutYourself"
         onChange={handleChange}
+        // setFormFieldsValidStatus={setFormFieldsValidStatus}
         // status={formFieldsValidStatus.aboutYourself}
       />
       <TextArea
@@ -141,6 +143,7 @@ const Form = (props) => {
         value={techStack}
         name="techStack"
         onChange={handleChange}
+        // setFormFieldsValidStatus={setFormFieldsValidStatus}
         // status={formFieldsValidStatus.techStack}
       />
       <TextArea
@@ -149,6 +152,7 @@ const Form = (props) => {
         value={lastProject}
         name="lastProject"
         onChange={handleChange}
+        // setFormFieldsValidStatus={setFormFieldsValidStatus}
         // status={formFieldsValidStatus.lastProject}
       />
 
