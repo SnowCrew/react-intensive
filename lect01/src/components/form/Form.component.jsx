@@ -40,7 +40,7 @@ const Form = (props) => {
     (event) => {
       event.preventDefault();
 
-      setFormFieldsValidStatus(statusFormFields);
+      // setFormFieldsValidStatus(statusFormFields);
       setShowFormFieldsStatus(true);
 
       if (Object.values(formFieldsValidStatus).every((el) => el === true)) {
@@ -80,6 +80,7 @@ const Form = (props) => {
         name="fname"
         onChange={handleChange}
         setFormFieldsValidStatus={setFormFieldsValidStatus}
+        setFormFields={setFormFields}
         showFormFieldsStatus={showFormFieldsStatus}
         status={formFieldsValidStatus.fname}
       />
@@ -90,6 +91,7 @@ const Form = (props) => {
         name="lname"
         onChange={handleChange}
         setFormFieldsValidStatus={setFormFieldsValidStatus}
+        setFormFields={setFormFields}
         showFormFieldsStatus={showFormFieldsStatus}
         status={formFieldsValidStatus.lname}
       />

@@ -15,6 +15,7 @@ const InputField = (props) => {
     type = "text",
     showFormFieldsStatus,
     setFormFieldsValidStatus,
+    setFormFields,
     ...otherProps
   } = props;
 
@@ -22,15 +23,37 @@ const InputField = (props) => {
 
   const handleValidation = useCallback(
     (type) => {
-      if (trimmedValue.length === 0) {
+      if (trimmedValue.length === 0 && status === false) {
         setValidError("Поле пустое. Заполните пожалуйста");
         return;
       }
       if (type === "text") {
-        if (trimmedValue.length > 0) {
-          setFormFieldsValidStatus((prev) => ({ ...prev, [name]: true }));
-          return;
+        if (name === "fname" || name === "lname") {
+          if (!/[a-zA-Zа-яёА-ЯЁ]/.test(value[0])) {
+            console.log(value, value.length);
+            setFormFields((prev) => ({
+              ...prev,
+              [name]: "",
+            }));
+            setFormFieldsValidStatus((prev) => ({
+              ...prev,
+              [name]: false,
+            }));
+
+            return;
+          } else if (trimmedValue.length > 0 && !/[A-ZА-ЯЁ]/.test(value[0])) {
+            const withFirstLetterUppercase = `${value[0].toUpperCase()}${value.slice(
+              1
+            )}`;
+            setFormFields((prev) => ({
+              ...prev,
+              [name]: withFirstLetterUppercase,
+            }));
+            return;
+          }
         }
+
+        setFormFieldsValidStatus((prev) => ({ ...prev, [name]: true }));
       }
       if (type === "phone") {
         const regex = /^\d-\d{4}-\d{2}-\d{2}$/g;
@@ -63,7 +86,7 @@ const InputField = (props) => {
         }
       }
     },
-    [trimmedValue, setFormFieldsValidStatus, name, status]
+    [trimmedValue, status, name, setFormFieldsValidStatus, value, setFormFields]
   );
 
   useEffect(() => {
