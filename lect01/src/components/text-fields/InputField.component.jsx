@@ -1,11 +1,10 @@
 import { useCallback } from "react";
-import { useMemo } from "react";
 import { useState, useEffect } from "react";
 import "./InputFields.css";
 
 const InputField = (props) => {
   const [validError, setValidError] = useState("");
-  // console.log(validError);
+
   const {
     label,
     value,
@@ -80,6 +79,7 @@ const InputField = (props) => {
         value={value}
         placeholder={placeholder}
         type={type}
+        maxLength={80}
         required
         {...otherProps}
       />

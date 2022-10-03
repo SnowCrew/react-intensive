@@ -24,16 +24,17 @@ const Form = (props) => {
     lastProject,
   } = formFields;
 
-  // console.log(formFields);
-  // console.log(formFieldsValidStatus);
-
-  // useEffect(() => {
-  //   console.log(formFieldsValidStatus);
-  // }, [formFieldsValidStatus, showFormFieldsStatus]);
-
   useEffect(() => {
     setShowFormFieldsStatus(false);
   }, [formFields]);
+
+  const handleObjectTrimmer = (obj) => {
+    const newObj = {};
+    for (let keys in obj) {
+      newObj[keys] = obj[keys].trim();
+    }
+    return newObj;
+  };
 
   const handleSubmit = useCallback(
     (event) => {
@@ -41,15 +42,13 @@ const Form = (props) => {
 
       setFormFieldsValidStatus(statusFormFields);
       setShowFormFieldsStatus(true);
-      // console.log(showFormFieldsStatus);
 
       if (Object.values(formFieldsValidStatus).every((el) => el === true)) {
         setFormStatus(true);
-        setPersonInformation(formFields);
-        console.log("Form fields with good values!");
+        setPersonInformation(handleObjectTrimmer(formFields));
       }
     },
-    [formFieldsValidStatus, props]
+    [formFields, formFieldsValidStatus, setFormStatus, setPersonInformation]
   );
 
   const handleChange = useCallback(

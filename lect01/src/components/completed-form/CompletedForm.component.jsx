@@ -4,6 +4,10 @@ import { ruNamedFields as ruData } from "../../data/form.data";
 const CompletedForm = (props) => {
   const { personInformation, setFormStatus } = props;
 
+  const handleShowForm = () => {
+    setFormStatus(false);
+  };
+
   return (
     <div className="completedForm">
       {Object.entries(personInformation).map((el) => {
@@ -14,6 +18,7 @@ const CompletedForm = (props) => {
           </div>
         );
       })}
+      <button onClick={handleShowForm}>Отменить</button>
     </div>
   );
 };
