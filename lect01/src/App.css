@@ -7,13 +7,3 @@
 
   align-items: center;
 }
-
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-
-  padding: 10px;
-
-  background-color: rgba(245, 222, 179, 0.352);
-}
