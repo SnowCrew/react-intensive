@@ -30,7 +30,6 @@ const InputField = (props) => {
       if (type === "text") {
         if (name === "fname" || name === "lname") {
           if (!/[a-zA-Zа-яёА-ЯЁ]/.test(value[0])) {
-            console.log(value, value.length);
             setFormFields((prev) => ({
               ...prev,
               [name]: "",

@@ -3,7 +3,6 @@ import InputField from "../text-fields/InputField.component";
 import TextArea from "../text-fields/TextArea.component";
 import "./Form.styles.css";
 import { defaultFormFields, statusFormFields } from "../../data/form.data";
-import { useEffect } from "react";
 import { useCallback } from "react";
 
 const Form = (props) => {
@@ -35,7 +34,6 @@ const Form = (props) => {
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
-      console.log(formFieldsValidStatus, showFormFieldsStatus);
 
       setFormFieldsValidStatus(statusFormFields);
       setShowFormFieldsStatus(true);
@@ -45,16 +43,9 @@ const Form = (props) => {
         setPersonInformation(handleObjectTrimmer(formFields));
       } else {
         window.scrollTo(0, 0);
-        setShowFormFieldsStatus(true);
       }
     },
-    [
-      formFields,
-      formFieldsValidStatus,
-      setFormStatus,
-      setPersonInformation,
-      showFormFieldsStatus,
-    ]
+    [formFields, formFieldsValidStatus, setFormStatus, setPersonInformation]
   );
 
   const handleChange = useCallback(
