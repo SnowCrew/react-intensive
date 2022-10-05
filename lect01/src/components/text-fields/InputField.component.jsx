@@ -52,13 +52,26 @@ const InputField = (props) => {
             return;
           }
         }
-
         setFormFieldsValidStatus((prev) => ({ ...prev, [name]: true }));
       }
-      if (type === "phone") {
+
+      if (type === "tel") {
+        const cardValue = value.match(
+          /^(\d{0,1})-?(\d{0,4})-?(\d{0,2})-?(\d{0,2})/
+        );
+        setFormFields((prev) => ({
+          ...prev,
+          [name]: !cardValue[2]
+            ? cardValue[1]
+            : `${cardValue[1]}-${cardValue[2]}${`${
+                cardValue[3] ? `-${cardValue[3]}` : ""
+              }`}${`${cardValue[4] ? `-${cardValue[4]}` : ""}`}`,
+        }));
+
         const regex = /^\d-\d{4}-\d{2}-\d{2}$/g;
         if (regex.test(trimmedValue) === false) {
           setValidError("Пожалуйста, введите телефон в формате X-XXXX-XX-XX");
+          setFormFieldsValidStatus((prev) => ({ ...prev, [name]: false }));
           return;
         } else {
           setFormFieldsValidStatus((prev) => ({ ...prev, [name]: true }));
@@ -69,6 +82,7 @@ const InputField = (props) => {
         const regex = /^https:\/\/*/g;
         if (regex.test(trimmedValue) === false) {
           setValidError("Пожалуйста, введите сайт, начиная с https://");
+          setFormFieldsValidStatus((prev) => ({ ...prev, [name]: false }));
           return;
         } else {
           setFormFieldsValidStatus((prev) => ({ ...prev, [name]: true }));
@@ -76,11 +90,27 @@ const InputField = (props) => {
         }
       }
       if (type === "date") {
-        const regex = /^\d{4}-\d{2}-\d{2}$/g;
-        if (regex.test(trimmedValue) === false) {
+        const dateFromValue = new Date().toLocaleDateString();
+        const format = dateFromValue.match(/(\d{2}).(\d{2}).(\d{4})/);
+
+        const todayDateInNeededFormat = `${format[3]}-${format[2]}-${format[1]}`;
+
+        const correctRegex = /^\d{4}-\d{2}-\d{2}$/g;
+        if (correctRegex.test(trimmedValue) === false) {
           setValidError("Пожалуйста, введите дату в формте XX.XX.XXXX");
+          setFormFieldsValidStatus((prev) => ({ ...prev, [name]: false }));
           return;
-        } else if (status !== true) {
+        } else if (value < "1900-01-01") {
+          setValidError("Пожалуйста, введите дату рождения живого человека");
+          setFormFieldsValidStatus((prev) => ({ ...prev, [name]: false }));
+          return;
+        } else if (value > todayDateInNeededFormat) {
+          setValidError(
+            "Пожалуйста, введите дату рождения родившегося человека"
+          );
+          setFormFieldsValidStatus((prev) => ({ ...prev, [name]: false }));
+          return;
+        } else {
           setFormFieldsValidStatus((prev) => ({ ...prev, [name]: true }));
           return;
         }
@@ -91,7 +121,14 @@ const InputField = (props) => {
 
   useEffect(() => {
     handleValidation(type);
-  }, [showFormFieldsStatus, value, status, handleValidation, type]);
+  }, [
+    handleValidation,
+    type,
+    showFormFieldsStatus,
+    validError,
+    setFormFieldsValidStatus,
+    value,
+  ]);
 
   return (
     <div className="input-container">

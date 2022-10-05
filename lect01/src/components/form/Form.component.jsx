@@ -17,16 +17,12 @@ const Form = (props) => {
     fname,
     lname,
     bdate,
-    phone,
+    tel,
     site,
     aboutYourself,
     techStack,
     lastProject,
   } = formFields;
-
-  useEffect(() => {
-    setShowFormFieldsStatus(false);
-  }, [formFields]);
 
   const handleObjectTrimmer = (obj) => {
     const newObj = {};
@@ -39,16 +35,26 @@ const Form = (props) => {
   const handleSubmit = useCallback(
     (event) => {
       event.preventDefault();
+      console.log(formFieldsValidStatus, showFormFieldsStatus);
 
-      // setFormFieldsValidStatus(statusFormFields);
+      setFormFieldsValidStatus(statusFormFields);
       setShowFormFieldsStatus(true);
 
       if (Object.values(formFieldsValidStatus).every((el) => el === true)) {
         setFormStatus(true);
         setPersonInformation(handleObjectTrimmer(formFields));
+      } else {
+        window.scrollTo(0, 0);
+        setShowFormFieldsStatus(true);
       }
     },
-    [formFields, formFieldsValidStatus, setFormStatus, setPersonInformation]
+    [
+      formFields,
+      formFieldsValidStatus,
+      setFormStatus,
+      setPersonInformation,
+      showFormFieldsStatus,
+    ]
   );
 
   const handleChange = useCallback(
@@ -109,13 +115,14 @@ const Form = (props) => {
       <InputField
         label="Телефон"
         placeholder="Телефон"
-        type="phone"
-        value={phone}
-        name="phone"
+        type="tel"
+        value={tel}
+        name="tel"
         onChange={handleChange}
+        setFormFields={setFormFields}
         setFormFieldsValidStatus={setFormFieldsValidStatus}
         showFormFieldsStatus={showFormFieldsStatus}
-        status={formFieldsValidStatus.phone}
+        status={formFieldsValidStatus.tel}
       />
       <InputField
         label="Сайт"
