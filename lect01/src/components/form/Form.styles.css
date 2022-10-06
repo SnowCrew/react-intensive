@@ -8,3 +8,22 @@
 
   background-color: rgba(245, 222, 179, 0.352);
 }
+
+.btn {
+  text-decoration: none;
+  color: black;
+
+  font-size: larger;
+  background-color: rgba(245, 222, 179, 0.352);
+
+  border: 1px solid black;
+  text-align: center;
+
+  cursor: pointer;
+
+  border-radius: 10px;
+}
+
+.btn:hover {
+  background-color: rgba(245, 222, 179, 0.685);
+}

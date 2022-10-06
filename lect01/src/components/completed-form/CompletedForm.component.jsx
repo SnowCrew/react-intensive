@@ -1,12 +1,9 @@
 import "./CompletedForm.styles.css";
 import { ruNamedFields as ruData } from "../../data/form.data";
+import { Link } from "react-router-dom";
 
 const CompletedForm = (props) => {
-  const { personInformation, setFormStatus } = props;
-
-  const handleShowForm = () => {
-    setFormStatus(false);
-  };
+  const { personInformation } = props;
 
   return (
     <div className="completedForm">
@@ -18,7 +15,12 @@ const CompletedForm = (props) => {
           </div>
         );
       })}
-      <button onClick={handleShowForm}>Отменить</button>
+      <Link className="link" to={"/form"} replace>
+        Вернуться к форме
+      </Link>
+      <Link className="link" to={"/"} replace>
+        Вернуться на стартовую страницу
+      </Link>
     </div>
   );
 };

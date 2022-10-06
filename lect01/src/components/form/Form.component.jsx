@@ -2,11 +2,19 @@ import { useState } from "react";
 import InputField from "../text-fields/InputField.component";
 import TextArea from "../text-fields/TextArea.component";
 import "./Form.styles.css";
-import { defaultFormFields, statusFormFields } from "../../data/form.data";
+import {
+  defaultFormFields,
+  statusFormFields,
+  correctFieldsForTest,
+} from "../../data/form.data";
 import { useCallback } from "react";
+import { Navigate } from "react-router-dom";
+import { useContext } from "react";
+import { PersonsContex } from "../../context/PersonsContext.context";
 
 const Form = (props) => {
-  const { setFormStatus, setPersonInformation } = props;
+  const [, setContext] = useContext(PersonsContex);
+  const { setFormStatus, setPersonInformation, formStatus } = props;
   const [formFields, setFormFields] = useState(defaultFormFields);
   const [formFieldsValidStatus, setFormFieldsValidStatus] =
     useState(statusFormFields);
@@ -39,13 +47,20 @@ const Form = (props) => {
       setShowFormFieldsStatus(true);
 
       if (Object.values(formFieldsValidStatus).every((el) => el === true)) {
-        setFormStatus(true);
         setPersonInformation(handleObjectTrimmer(formFields));
+        setContext(handleObjectTrimmer(formFields));
+        setFormStatus(true);
       } else {
         window.scrollTo(0, 0);
       }
     },
-    [formFields, formFieldsValidStatus, setFormStatus, setPersonInformation]
+    [
+      formFields,
+      formFieldsValidStatus,
+      setContext,
+      setFormStatus,
+      setPersonInformation,
+    ]
   );
 
   const handleChange = useCallback(
@@ -69,10 +84,16 @@ const Form = (props) => {
     [props]
   );
 
+  const handleCorrectData = (event) => {
+    event.preventDefault();
+    setFormFields(correctFieldsForTest);
+  };
+
   return (
     <form className="form">
       <InputField
-        label="Имя"
+        label="Имя*"
+        placeholder="Имя"
         value={fname}
         name="fname"
         onChange={handleChange}
@@ -82,7 +103,7 @@ const Form = (props) => {
         status={formFieldsValidStatus.fname}
       />
       <InputField
-        label="Фамилия"
+        label="Фамилия*"
         placeholder="Фамилия"
         value={lname}
         name="lname"
@@ -93,7 +114,7 @@ const Form = (props) => {
         status={formFieldsValidStatus.lname}
       />
       <InputField
-        label="Дата рождения"
+        label="Дата рождения*"
         placeholder="Дата рождения"
         type="date"
         value={bdate}
@@ -104,7 +125,7 @@ const Form = (props) => {
         status={formFieldsValidStatus.bdate}
       />
       <InputField
-        label="Телефон"
+        label="Телефон*"
         placeholder="Телефон"
         type="tel"
         value={tel}
@@ -116,7 +137,7 @@ const Form = (props) => {
         status={formFieldsValidStatus.tel}
       />
       <InputField
-        label="Сайт"
+        label="Сайт*"
         placeholder="Сайт"
         type="url"
         value={site}
@@ -133,8 +154,6 @@ const Form = (props) => {
         value={aboutYourself}
         name="aboutYourself"
         onChange={handleChange}
-        // setFormFieldsValidStatus={setFormFieldsValidStatus}
-        // status={formFieldsValidStatus.aboutYourself}
       />
       <TextArea
         label="Стек технологий"
@@ -142,8 +161,6 @@ const Form = (props) => {
         value={techStack}
         name="techStack"
         onChange={handleChange}
-        // setFormFieldsValidStatus={setFormFieldsValidStatus}
-        // status={formFieldsValidStatus.techStack}
       />
       <TextArea
         label="Описание последнего проекта"
@@ -151,12 +168,26 @@ const Form = (props) => {
         value={lastProject}
         name="lastProject"
         onChange={handleChange}
-        // setFormFieldsValidStatus={setFormFieldsValidStatus}
-        // status={formFieldsValidStatus.lastProject}
       />
 
-      <input type={"button"} onClick={handleSubmit} value="Сохранить" />
-      <input type={"button"} onClick={handleClear} value="Отменить" />
+      {formStatus ? <Navigate to="/completed-form" /> : null}
+      {
+        <input
+          className="btn"
+          type={"button"}
+          onClick={handleSubmit}
+          value="Сохранить"
+        />
+      }
+      <input
+        className="btn"
+        type={"button"}
+        onClick={handleClear}
+        value="Отменить"
+      />
+      <button className="btn" onClick={handleCorrectData}>
+        Fill with correct data
+      </button>
     </form>
   );
 };

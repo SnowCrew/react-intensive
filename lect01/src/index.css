@@ -1,12 +1,6 @@
 body {
   margin: 0;
 
-  min-width: 100vw;
-  min-height: 100vh;
-
-  background: url("https://phonoteka.org/uploads/posts/2021-03/1616367277_17-p-fon-dlya-saita-18.jpg")
-    center center/cover no-repeat;
-
   font-family: sans-serif;
 }
 
