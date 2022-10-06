@@ -1,0 +1,50 @@
+.completedForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5px;
+
+  max-width: 80vw;
+
+  padding: 5px;
+  margin-bottom: 20px;
+
+  background-color: rgba(245, 222, 179, 0.352);
+}
+
+.fieldsContainer {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  border: 1px solid black;
+
+  max-width: 70vw;
+
+  margin: 5px;
+  padding: 5px;
+
+  align-items: center;
+}
+.fieldName {
+  font-weight: bold;
+  flex-wrap: wrap;
+}
+.fieldValue {
+  max-width: 50vw;
+  overflow-wrap: break-word;
+}
+
+.link {
+  text-decoration: none;
+  color: black;
+
+  font-size: larger;
+  background-color: rgba(245, 222, 179, 0.352);
+
+  border: 1px solid black;
+  text-align: center;
+
+  border-radius: 10px;
+}
+.link:hover {
+  background-color: rgba(245, 222, 179, 0.685);
+}

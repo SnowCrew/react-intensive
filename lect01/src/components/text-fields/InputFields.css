@@ -13,3 +13,6 @@
 .text-input {
   box-sizing: border-box;
 }
+.inputInfo {
+  color: red;
+}

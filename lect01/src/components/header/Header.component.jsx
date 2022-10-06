@@ -1,17 +1,12 @@
-import { Component } from "react";
 import "./Header.css";
 
-export default class Header extends Component {
-  constructor(props) {
-    super(props);
-  }
+const Header = (props) => {
+  const { name } = props;
+  return (
+    <div className="header">
+      <h1 className="headerField">{name}</h1>
+    </div>
+  );
+};
 
-  render() {
-    const { name } = this.props;
-    return (
-      <div className="header">
-        <h1>{name}</h1>
-      </div>
-    );
-  }
-}
+export default Header;
